@@ -18,6 +18,12 @@ int main(int argc, char* argv[]){
       player.play();
     else if(c == 's')
       player.stop();
+    else if(c == 'r')
+      player.resume();
+    else if(c == 'd')
+      player.pause();
+    else if(c == 'n')
+      player.setMusic("examples/behzad.wav");
     else
       player.pause();
   }
