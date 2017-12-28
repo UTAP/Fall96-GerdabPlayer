@@ -17,6 +17,7 @@ class GerdabPlayer
     ~GerdabPlayer();
   private:
     bool playing;
+    Mix_Music *music;
     bool finished;
     bool terminated;
     bool started;
