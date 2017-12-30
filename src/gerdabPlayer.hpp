@@ -6,14 +6,17 @@ void Delay(int milis);
 class GerdabPlayer
 {
   public:
-    void play();
-    void setMusic(std::string path);
-    void pause();
-    void resume();
-    void stop();
-    int getRemainingTime();
+    static void play();
+    static void setMusic(std::string path);
+    static void pause();
+    static void resume();
+    static void stop();
+    static void setNextMusic(std::string path);
+    friend void musicFinishCallback();
+    static std::string nextMusic;
   private:
-    Mix_Music *music;
+    static Mix_Music *music;
+    static void goToNext();
 };
 
 class GerdabError{

@@ -7,8 +7,10 @@ int main(int argc, char* argv[]){
   char c;
   while (1) {
     std::cin>>c;
-    if(c == 'p')
+    if(c == 'p'){
       player.play();
+      player.setNextMusic("examples/book.wav");
+    }
     else if(c == 's')
       player.stop();
     else if(c == 'r')
