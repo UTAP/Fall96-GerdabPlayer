@@ -16,6 +16,7 @@ std::string GerdabError::getMessage()
 GerdabPlayer::GerdabPlayer(){
   Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
   index = 0;
+  repeat = 0;
 }
 
 Mix_Music* GerdabPlayer::music;
