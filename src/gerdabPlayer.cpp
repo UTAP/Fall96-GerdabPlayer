@@ -13,20 +13,34 @@ std::string GerdabError::getMessage()
     return message;
   }
 
+GerdabPlayer::GerdabPlayer(){
+  Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
+  index = 0;
+}
+
 Mix_Music* GerdabPlayer::music;
+bool GerdabPlayer::repeat;
+int GerdabPlayer::index;
+std::vector<std::string> GerdabPlayer::queue;
 std::string GerdabPlayer::nextMusic;
+
 void GerdabPlayer::resume()
 {
     Mix_ResumeMusic();
 }
-void GerdabPlayer::setNextMusic(std::string path)
-{
-    nextMusic = path;
-}
 
 void GerdabPlayer::goToNext(){
   GerdabPlayer::stop();
-  GerdabPlayer::setMusic(GerdabPlayer::nextMusic);
+  index++;
+  if(index >= queue.size()){
+    if(repeat){
+      index = 0;
+    }else{
+      queue.clear();
+      return;
+    }
+  }
+  GerdabPlayer::setMusic(queue[index]);
   GerdabPlayer::play();
 }
 
@@ -36,8 +50,12 @@ void musicFinishCallback(){
 
 void GerdabPlayer::play()
 {
-    Mix_PlayMusic(music, 1);
-    Mix_HookMusicFinished(musicFinishCallback);
+    if(queue.size() != 0){
+      cout<<queue[index]<<endl;
+      music = Mix_LoadMUS(queue[index].c_str());
+      Mix_PlayMusic(music, 1);
+      Mix_HookMusicFinished(musicFinishCallback);
+    }
 }
 
 void GerdabPlayer::setMusic(std::string path)
@@ -50,9 +68,16 @@ void GerdabPlayer::pause()
   Mix_PauseMusic();
 }
 
-
 void GerdabPlayer::stop()
 {
   Mix_HaltMusic();
+}
 
+void GerdabPlayer::setRepeat(bool _repeat)
+{ 
+  repeat = _repeat;
+}
+void GerdabPlayer::setQueue(std::vector<std::string> _queue)
+{
+  queue = _queue;
 }
