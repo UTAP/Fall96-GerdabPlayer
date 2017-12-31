@@ -7,6 +7,7 @@ void Delay(int milis);
 class GerdabPlayer
 {
   public:
+
     GerdabPlayer();
     static void play();
     static void setMusic(std::string path);
