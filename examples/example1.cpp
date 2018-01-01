@@ -16,15 +16,15 @@ int main(int argc, char* argv[]){
   queue.push_back(m2);
   queue.push_back(m3);
   GerdabPlayer player;
-  
+
   player.setQueue(queue);
   player.setRepeat(0);
+
   char c;
   while (1) {
     std::cin>>c;
     if(c == 'p'){
       player.play();
-      player.setNextMusic("examples/book.wav");
     }
     else if(c == 's')
       player.stop();
