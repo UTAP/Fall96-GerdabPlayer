@@ -52,7 +52,6 @@ void musicFinishCallback(){
 void GerdabPlayer::play()
 {
     if(queue.size() != 0){
-      cout<<queue[index]<<endl;
       music = Mix_LoadMUS(queue[index].c_str());
       Mix_PlayMusic(music, 1);
       Mix_HookMusicFinished(musicFinishCallback);
@@ -86,9 +85,8 @@ void GerdabPlayer::setQueue(std::vector<std::string> _queue)
 
 void GerdabPlayer::next()
 {
-  if(index < queue.size()-1)
+  if(index < queue.size())
     index++;
-  GerdabPlayer::stop();
   if(index >= queue.size()){
     if(repeat){
       index = 0;
@@ -103,10 +101,9 @@ void GerdabPlayer::next()
 
 void GerdabPlayer::previous()
 {
-  if(index > 0)
+  if(index >= 0)
     index--;
-  GerdabPlayer::stop();
-  if(index == 0){
+  if(index == -1){
     if(repeat){
       index = queue.size()-1;
     }else{
