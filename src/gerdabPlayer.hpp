@@ -12,6 +12,8 @@ class GerdabPlayer
     static void setMusic(std::string path);
     static void pause();
     static void resume();
+    static void next();
+    static void previous();
     static void stop();
     static void setRepeat(bool repeat);
     static void setQueue(std::vector<std::string> queue);

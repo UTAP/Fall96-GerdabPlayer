@@ -75,10 +75,44 @@ void GerdabPlayer::stop()
 }
 
 void GerdabPlayer::setRepeat(bool _repeat)
-{ 
+{
   repeat = _repeat;
 }
+
 void GerdabPlayer::setQueue(std::vector<std::string> _queue)
 {
   queue = _queue;
+}
+
+void GerdabPlayer::next()
+{
+  if(index < queue.size()-1)
+    index++;
+  GerdabPlayer::stop();
+  if(index >= queue.size()){
+    if(repeat){
+      index = 0;
+    }else{
+      queue.clear();
+      return;
+    }
+  }
+  GerdabPlayer::setMusic(queue[index]);
+  GerdabPlayer::play();
+}
+
+void GerdabPlayer::previous()
+{
+  if(index > 0)
+    index--;
+  GerdabPlayer::stop();
+  if(index == 0){
+    if(repeat){
+      index = queue.size()-1;
+    }else{
+      return;
+    }
+  }
+  GerdabPlayer::setMusic(queue[index]);
+  GerdabPlayer::play();
 }
